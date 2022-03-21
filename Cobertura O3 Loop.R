@@ -1,9 +1,9 @@
-#Atv: Calcular a mÈdia mensal de O3 em v·rias estaÁıes
-#ATV: Fazer uma gr·fico da COBERTURA de dados O3
+#Atv: Calcular a m√©dia mensal de O3 em v√°rias esta√ß√µes
+#ATV: Fazer uma gr√°fico da COBERTURA de dados O3
 
 library(dplyr)
 library(lubridate)
-medDia_O3=read.csv("G:/Meu Drive/4 IC/1 Projeto/Reuniıes/5 Dados completos MP10 e O3/Dados com ediÁ„o nos nomes das estaÁıes  2005-20021/O3_media_diaria_2005-2021.CSV",header=T)
+medDia_O3=read.csv("G:/Meu Drive/4 IC/1 Projeto/Reuni√µes/5 Dados completos MP10 e O3/Dados com edi√ß√£o nos nomes das esta√ß√µes  2005-20021/O3_media_diaria_2005-2021.CSV",header=T)
 
  
 colnames(medDia_O3)[1]="data"
@@ -18,7 +18,7 @@ medDia_O3$data <-paste(medDia_O3$y,medDia_O3$m,medDia_O3$d, sep = "_")
 #https://www.ti-enxame.com/pt/r/como-mesclar-duas-colunas-em-r-com-um-simbolo-especifico/971257923/
 
 
-library(lubridate) #FunÁıes dmy, mdy, ymd, ymd_h, ymd_hms, etc: convertem 
+library(lubridate) #Fun√ß√µes dmy, mdy, ymd, ymd_h, ymd_hms, etc: convertem 
 #data escrita na forma de texto para um objeto tipo "date"
 
 medDia_O3$data <-ymd(medDia_O3$data) 
@@ -26,19 +26,19 @@ medDia_O3$data <-ymd(medDia_O3$data)
 
 #data frame <- data frame ["linha","coluna"]
 medDia_O3 <- medDia_O3[ ,-c(2,4)]
-#Excluir as colnas "y"(ano) e "d"(dia), para n„o ter informacao 
+#Excluir as colnas "y"(ano) e "d"(dia), para n√£o ter informacao 
 #repetida, pois na coluna "data" ja tem esses dados
 
 
 
-#### OBJ: quero a mÈdia de O3 de cada mes, para todas as Estacoes!!!
+#### OBJ: quero a m√©dia de O3 de cada mes, para todas as Estacoes!!!
 
 Med1_Mensal<-data.frame(mes=1:12, matrix(NA,12,12))
 
 colnames(Med1_Mensal)[2:13]<- colnames(medDia_O3[3:14])
 
 # loop For
-#which: encontrar a posiÁ„o de um elemento
+#which: encontrar a posi√ß√£o de um elemento
 for (iest in 3:14) {
   for (imes in 1:12) {
     lin <- which(medDia_O3$m==imes)
@@ -48,12 +48,12 @@ for (iest in 3:14) {
 
 
 
-#### OBJ: saber a Cobertura de dados de cada mÍs, em cada uma da estaÁıes!!!
+#### OBJ: saber a Cobertura de dados de cada m√™s, em cada uma da esta√ß√µes!!!
 
 #1 coluna = Jan 2005, fev 2005... dez 2020
 #2 coluna = % de dados validos em cada mes (ex: num. dados validos jan/31)
 
-#### Cobertura de dados S” em DIADEMA ######
+#### Cobertura de dados S√ì em DIADEMA ######
 CobDados<- data.frame(mes=seq(ymd('2005-01-01'),ymd('2020-12-31'),by='months'))
 CobDados[, 2:13]<-NA
 colnames(CobDados)[2:13]<- colnames(medDia_O3[3:14])
@@ -66,7 +66,7 @@ for (i in 1:nrow(CobDados)) {
 ###########################################
 
 
-#### Cobertura de dados p/ todas as estaÁıes! ######
+#### Cobertura de dados p/ todas as esta√ß√µes! ######
 
 CobDados<- data.frame(mes=seq(ymd('2005-01-01'),ymd('2020-12-31'),by='months'))
 CobDados[, 2:13]<-NA
@@ -82,7 +82,7 @@ for (i in 1:nrow(CobDados)){
   
 
 
-#### Heatmap da Cobertura de dados p/ todas as estaÁıes! ######
+#### Heatmap da Cobertura de dados p/ todas as esta√ß√µes! ######
  
 library(plotly)
 
@@ -102,12 +102,6 @@ fig1
 
 
 
-#Como formatar o gr·fico? (ex: colocar tÌtulo, mudar as cores...)
-################################################################################
-
-#na.rm = TRUE -> È uma foma de fazer a mÈdia ignorando os NaNs ou NAs
-
-# !is.na -> ignora os NaNs ou NAs
 
 
 
